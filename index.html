@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="zh-CN">
 
 <head>
@@ -10,10 +9,11 @@
 
 
 <title>
-善化寺 · 大雄宝殿数字体验
+善化寺 · 大雄宝殿数字沉浸体验
 </title>
 
 
+<!-- Pannellum -->
 
 <link rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css">
@@ -23,18 +23,19 @@ href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css">
 </script>
 
 
+
 <style>
 
 
 *{
 
 margin:0;
-
 padding:0;
 
 box-sizing:border-box;
 
 }
+
 
 
 html,body{
@@ -46,13 +47,19 @@ height:100%;
 overflow:hidden;
 
 font-family:
+
 "Microsoft YaHei",
+"PingFang SC",
 sans-serif;
 
 }
 
 
-/*全景*/
+
+/*******************
+全景窗口
+*******************/
+
 
 #panorama{
 
@@ -65,9 +72,10 @@ height:100vh;
 
 
 
-/**************
+
+/*******************
 顶部标题
-**************/
+*******************/
 
 
 .title{
@@ -75,99 +83,38 @@ height:100vh;
 
 position:absolute;
 
+
 top:35px;
+
 
 left:50%;
 
-transform:translateX(-50%);
+
+transform:
+translateX(-50%);
 
 
-z-index:5;
+
+z-index:20;
+
 
 
 color:white;
+
 
 
 font-size:28px;
 
 
+
 letter-spacing:12px;
+
 
 
 text-shadow:
 
-0 2px 15px #000;
+0 3px 15px #000;
 
-
-}
-
-
-/**************
-VR按钮
-**************/
-
-
-#vrBtn{
-
-
-position:absolute;
-
-
-right:30px;
-
-
-bottom:35px;
-
-
-z-index:10;
-
-
-padding:15px 28px;
-
-
-
-border-radius:40px;
-
-
-border:
-
-1px solid rgba(255,255,255,.5);
-
-
-
-background:
-
-rgba(0,0,0,.45);
-
-
-
-backdrop-filter:
-
-blur(15px);
-
-
-
-color:white;
-
-
-font-size:16px;
-
-
-cursor:pointer;
-
-
-transition:.3s;
-
-
-}
-
-
-#vrBtn:hover{
-
-
-background:
-
-rgba(180,130,50,.8);
 
 
 }
@@ -175,9 +122,10 @@ rgba(180,130,50,.8);
 
 
 
-/**************
-信息卡片
-**************/
+
+/*******************
+信息毛玻璃卡片
+*******************/
 
 
 .info-box{
@@ -186,10 +134,11 @@ rgba(180,130,50,.8);
 position:absolute;
 
 
+left:50%;
+
+
 top:50%;
 
-
-left:50%;
 
 
 transform:
@@ -201,24 +150,26 @@ translate(-50%,-50%);
 width:420px;
 
 
+
 padding:35px;
 
 
 
 background:
 
-rgba(15,15,15,.55);
+rgba(20,20,20,.55);
 
 
 
 backdrop-filter:
 
-blur(18px);
+blur(20px);
+
 
 
 -webkit-backdrop-filter:
 
-blur(18px);
+blur(20px);
 
 
 
@@ -228,7 +179,7 @@ border:
 
 
 
-border-radius:20px;
+border-radius:22px;
 
 
 
@@ -236,11 +187,11 @@ color:white;
 
 
 
+z-index:30;
+
+
+
 display:none;
-
-
-
-z-index:20;
 
 
 
@@ -252,11 +203,12 @@ box-shadow:
 
 animation:
 
-show .5s;
+fade .4s;
 
 
 
 }
+
 
 
 
@@ -267,16 +219,16 @@ show .5s;
 text-align:center;
 
 
-font-size:25px;
+font-size:26px;
 
 
 letter-spacing:8px;
 
 
-color:#e6c27a;
+color:#e7c47a;
 
 
-margin-bottom:20px;
+margin-bottom:25px;
 
 
 
@@ -296,8 +248,8 @@ line-height:2;
 color:#eee;
 
 
-}
 
+}
 
 
 
@@ -313,48 +265,60 @@ right:20px;
 top:15px;
 
 
+
 font-size:25px;
+
 
 
 cursor:pointer;
 
 
+
 }
 
 
 
-@keyframes show{
+
+@keyframes fade{
 
 
 from{
 
+
 opacity:0;
+
 
 transform:
 translate(-50%,-40%);
 
-}
 
+
+}
 
 
 to{
 
+
 opacity:1;
+
 
 transform:
 translate(-50%,-50%);
 
-}
 
 
 }
 
 
+}
 
-</style>
-/***************
-数字导游栏
-****************/
+
+
+
+
+/*******************
+数字导游控制栏
+*******************/
 
 
 .guide-bar{
@@ -363,18 +327,22 @@ translate(-50%,-50%);
 position:absolute;
 
 
-bottom:35px;
+
+bottom:30px;
+
 
 
 left:50%;
 
 
+
 transform:
+
 translateX(-50%);
 
 
 
-z-index:15;
+z-index:25;
 
 
 
@@ -388,8 +356,7 @@ gap:35px;
 
 padding:
 
-15px 40px;
-
+15px 45px;
 
 
 
@@ -405,17 +372,25 @@ blur(18px);
 
 
 
+-webkit-backdrop-filter:
+
+blur(18px);
+
+
+
 border:
 
-1px solid rgba(255,255,255,.35);
+
+1px solid rgba(255,255,255,.3);
 
 
 
-border-radius:50px;
+border-radius:60px;
 
 
 
 box-shadow:
+
 
 0 10px 40px rgba(0,0,0,.5);
 
@@ -425,10 +400,12 @@ box-shadow:
 
 
 
+
 .guide-item{
 
 
 width:75px;
+
 
 
 height:65px;
@@ -438,20 +415,16 @@ height:65px;
 display:flex;
 
 
+
 flex-direction:column;
+
 
 
 align-items:center;
 
 
+
 justify-content:center;
-
-
-
-color:white;
-
-
-font-size:26px;
 
 
 
@@ -459,7 +432,16 @@ cursor:pointer;
 
 
 
+color:white;
+
+
+
+font-size:26px;
+
+
+
 transition:.3s;
+
 
 
 }
@@ -472,14 +454,16 @@ transition:.3s;
 font-size:14px;
 
 
+
 margin-top:5px;
+
 
 
 letter-spacing:2px;
 
 
-}
 
+}
 
 
 
@@ -492,20 +476,125 @@ translateY(-8px);
 
 
 
-color:#e6c27a;
+color:#e7c47a;
+
 
 
 }
 
 
 
-</head>
 
+
+/*******************
+VR按钮
+*******************/
+
+
+#vrBtn{
+
+
+position:absolute;
+
+
+
+right:30px;
+
+
+
+bottom:120px;
+
+
+
+z-index:25;
+
+
+
+padding:
+
+15px 28px;
+
+
+
+border-radius:40px;
+
+
+
+border:
+
+1px solid rgba(255,255,255,.4);
+
+
+
+background:
+
+rgba(0,0,0,.45);
+
+
+
+backdrop-filter:
+
+blur(15px);
+
+
+
+color:white;
+
+
+
+font-size:16px;
+
+
+
+cursor:pointer;
+
+
+
+}
+
+
+
+
+#vrBtn:hover{
+
+
+background:
+
+rgba(180,130,50,.8);
+
+
+
+}
+
+
+
+/*******************
+Pannellum按钮美化
+*******************/
+
+
+.pnlm-hotspot{
+
+
+background:
+
+rgba(190,150,70,.9)!important;
+
+
+
+}
+
+
+
+
+</style>
+</head>
 
 
 <body>
 
 
+<!-- 页面标题 -->
 
 <div class="title">
 
@@ -515,10 +604,18 @@ color:#e6c27a;
 
 
 
+<!-- 全景容器 -->
+
 <div id="panorama"></div>
+
+
+
+
 <!-- 数字导游控制栏 -->
 
+
 <div class="guide-bar">
+
 
 
 <div class="guide-item"
@@ -530,6 +627,7 @@ onclick="showGuide('building')">
 建筑
 </span>
 
+
 </div>
 
 
@@ -537,24 +635,29 @@ onclick="showGuide('building')">
 <div class="guide-item"
 onclick="showGuide('buddha')">
 
+
 🪷
 
 <span>
 佛像
 </span>
 
+
 </div>
+
 
 
 
 <div class="guide-item"
 onclick="showGuide('history')">
 
+
 📜
 
 <span>
 历史
 </span>
+
 
 </div>
 
@@ -564,18 +667,22 @@ onclick="showGuide('history')">
 <div class="guide-item"
 onclick="showGuide('ai')">
 
+
 🎧
 
 <span>
 AI讲解
 </span>
 
+
 </div>
+
 
 
 
 <div class="guide-item"
 onclick="showGuide('map')">
+
 
 🗺️
 
@@ -583,10 +690,18 @@ onclick="showGuide('map')">
 导览
 </span>
 
+
 </div>
 
 
+
 </div>
+
+
+
+
+
+<!-- VR按钮 -->
 
 
 <button id="vrBtn">
@@ -598,10 +713,12 @@ onclick="showGuide('map')">
 
 
 
-<!-- 信息弹窗 -->
+
+<!-- 信息窗口 -->
 
 
-<div class="info-box" id="infoBox">
+<div class="info-box"
+id="infoBox">
 
 
 <div class="close"
@@ -630,13 +747,15 @@ onclick="closeInfo()">
 
 
 
+
+
 <script>
 
 
 
-/********************
- 全景场景配置
-********************/
+/*********************************
+ Pannellum初始化
+*********************************/
 
 
 let viewer;
@@ -647,7 +766,6 @@ viewer =
 pannellum.viewer(
 
 "panorama",
-
 
 {
 
@@ -661,11 +779,11 @@ firstScene:"outside",
 autoLoad:true,
 
 
-sceneFadeDuration:1500
-
+sceneFadeDuration:1200
 
 
 },
+
 
 
 
@@ -673,17 +791,15 @@ scenes:{
 
 
 
-/*************
-场景1
-殿前
-*************/
+/*********************************
+ 场景1：殿前广场
+*********************************/
 
 
 outside:{
 
 
 type:"equirectangular",
-
 
 
 panorama:
@@ -707,15 +823,12 @@ hotSpots:[
 
 {
 
-
-pitch:-5,
-
+pitch:-8,
 
 yaw:0,
 
 
 type:"scene",
-
 
 
 text:
@@ -727,6 +840,7 @@ text:
 sceneId:
 
 "inside"
+
 
 
 }
@@ -741,11 +855,9 @@ sceneId:
 
 
 
-/*************
-场景2
-殿内
-*************/
-
+/*********************************
+ 场景2：殿内
+*********************************/
 
 
 inside:{
@@ -776,6 +888,11 @@ hotSpots:[
 
 
 
+
+/**************
+中央佛像
+**************/
+
 {
 
 
@@ -788,16 +905,21 @@ yaw:0,
 type:"info",
 
 
+
 text:
 
 "释迦牟尼佛",
+
+
 
 
 clickHandlerFunc:
 
 function(){
 
+
 showInfo("buddha");
+
 
 }
 
@@ -805,6 +927,12 @@ showInfo("buddha");
 },
 
 
+
+
+
+/**************
+左侧诸天
+**************/
 
 
 {
@@ -824,18 +952,29 @@ text:
 "左侧二十四诸天",
 
 
+
 clickHandlerFunc:
 
 function(){
 
+
 showInfo("guardians");
 
+
 }
+
 
 
 },
 
 
+
+
+
+
+/**************
+右侧诸天
+**************/
 
 
 {
@@ -855,13 +994,17 @@ text:
 "右侧二十四诸天",
 
 
+
 clickHandlerFunc:
 
 function(){
 
+
 showInfo("guardians");
 
+
 }
+
 
 
 }
@@ -870,7 +1013,10 @@ showInfo("guardians");
 
 ]
 
+
 }
+
+
 
 
 }
@@ -887,148 +1033,14 @@ showInfo("guardians");
 
 
 
-/********************
- 文物信息数据库
-********************/
 
+/*********************************
+ 文物介绍数据库
+*********************************/
 
 
-const data={
-const guideData={
+const infoData={
 
-
-building:{
-
-
-title:"金代木构建筑",
-
-content:
-
-`
-
-善化寺大雄宝殿是我国现存规模最大的辽金时期佛殿之一。
-
-
-
-<br><br>
-
-
-建筑采用传统木构架体系，
-斗拱层层叠加，
-体现中国古代建筑智慧。
-
-
-
-`
-
-
-},
-
-
-
-
-history:{
-
-
-title:"善化寺历史",
-
-content:
-
-`
-
-善化寺始建于唐代开元年间。
-
-
-
-<br><br>
-
-
-现存主体建筑主要形成于辽金时期，
-是中国北方佛教建筑的重要遗存。
-
-
-
-`
-
-
-},
-
-
-
-ai:{
-
-
-title:"数字导游",
-
-content:
-
-`
-
-您好，我是善化寺数字导游。
-
-
-<br><br>
-
-
-接下来将带您探索：
-
-大雄宝殿建筑、
-
-辽金彩塑、
-
-二十四诸天艺术。
-
-
-
-<br><br>
-
-
-🎧 语音讲解功能即将开启。
-
-
-`
-
-
-},
-
-
-
-
-map:{
-
-
-title:"游览路线",
-
-content:
-
-`
-
-当前路线：
-
-<br><br>
-
-① 殿前广场
-
-↓
-
-② 大雄宝殿
-
-↓
-
-③ 主尊佛像
-
-↓
-
-④ 二十四诸天
-
-
-`
-
-
-}
-
-
-};
 
 
 buddha:{
@@ -1044,35 +1056,37 @@ content:
 
 `
 
-善化寺大雄宝殿中央主尊佛像。
-
+善化寺大雄宝殿中央供奉主尊佛像。
 
 
 <br><br>
 
 
-
-年代：
+<strong>年代：</strong>
 
 金代。
 
 
-
 <br><br>
 
 
+<strong>艺术特点：</strong>
 
-艺术特点：
 
-佛像神态庄严，
+佛像造型庄严，
 比例匀称，
 衣纹流畅。
 
 
+<br><br>
+
+
 体现了辽金时期
-北方佛教造像艺术。
+北方佛教造像艺术特色。
+
 
 `
+
 
 },
 
@@ -1080,7 +1094,6 @@ content:
 
 
 guardians:{
-
 
 
 title:
@@ -1099,14 +1112,216 @@ content:
 <br><br>
 
 
-这些造像融合佛教体系
+这些造像融合佛教护法体系
 与中国传统武将形象。
 
 
 <br><br>
 
 
-具有鲜明的辽金彩塑艺术特色。
+体现辽金时期彩塑艺术
+高度成熟的审美特点。
+
+
+`
+
+
+}
+
+
+
+};
+
+
+
+
+
+
+
+/*********************************
+ 数字导游数据库
+*********************************/
+
+
+const guideData={
+
+
+
+building:{
+
+
+title:
+
+"金代木构建筑",
+
+
+
+content:
+
+`
+
+善化寺大雄宝殿是我国现存
+规模最大的辽金时期佛殿之一。
+
+
+<br><br>
+
+
+建筑采用传统木构架体系，
+斗拱层层叠加，
+体现中国古代建筑智慧。
+
+
+`
+
+},
+
+
+
+
+
+history:{
+
+
+title:
+
+"善化寺历史",
+
+
+
+content:
+
+`
+
+善化寺始建于唐代开元年间。
+
+
+<br><br>
+
+
+现存主要建筑形成于辽金时期，
+是中国北方佛教建筑的重要遗存。
+
+
+`
+
+},
+
+
+
+
+ai:{
+
+
+title:
+
+"AI数字导游",
+
+
+
+content:
+
+`
+
+您好，我是善化寺数字导游。
+
+
+<br><br>
+
+
+接下来将带您探索：
+
+<br>
+
+① 金代木构建筑
+
+<br>
+
+② 大雄宝殿彩塑
+
+<br>
+
+③ 二十四诸天艺术
+
+
+<br><br>
+
+
+🎧 语音讲解功能将在后续版本开启。
+
+`
+
+},
+
+
+
+
+map:{
+
+
+title:
+
+"游览路线",
+
+
+
+content:
+
+`
+
+当前数字游览路线：
+
+
+<br><br>
+
+
+① 殿前广场
+
+<br>
+
+↓
+
+<br>
+
+② 大雄宝殿
+
+<br>
+
+↓
+
+<br>
+
+③ 释迦牟尼佛
+
+<br>
+
+↓
+
+<br>
+
+④ 二十四诸天
+
+
+`
+
+},
+
+
+
+
+buddha:{
+
+
+title:
+
+"释迦牟尼佛",
+
+
+content:
+
+`
+
+点击热点即可查看佛像详细信息。
 
 `
 
@@ -1120,30 +1335,44 @@ content:
 
 
 
+
+
+
+/*********************************
+ 打开文物介绍
+*********************************/
+
+
 function showInfo(type){
 
 
-let item=data[type];
+let data =
+infoData[type];
+
 
 
 document
 .getElementById("infoTitle")
 .innerHTML=
-item.title;
+
+data.title;
 
 
 
 document
 .getElementById("infoContent")
 .innerHTML=
-item.content;
+
+data.content;
 
 
 
 document
 .getElementById("infoBox")
 .style.display=
+
 "block";
+
 
 
 }
@@ -1151,10 +1380,18 @@ document
 
 
 
+
+
+
+/*********************************
+ 打开导游介绍
+*********************************/
+
+
 function showGuide(type){
 
 
-let item=
+let data =
 guideData[type];
 
 
@@ -1162,20 +1399,23 @@ guideData[type];
 document
 .getElementById("infoTitle")
 .innerHTML=
-item.title;
+
+data.title;
 
 
 
 document
 .getElementById("infoContent")
 .innerHTML=
-item.content;
+
+data.content;
 
 
 
 document
 .getElementById("infoBox")
 .style.display=
+
 "block";
 
 
@@ -1183,9 +1423,23 @@ document
 
 
 
+
+
+
+
+
+/*********************************
+ 关闭弹窗
+*********************************/
+
+
+function closeInfo(){
+
+
 document
 .getElementById("infoBox")
 .style.display=
+
 "none";
 
 
@@ -1196,9 +1450,11 @@ document
 
 
 
-/********************
+
+
+/*********************************
  手机陀螺仪
-********************/
+*********************************/
 
 
 if(
@@ -1206,10 +1462,10 @@ window.DeviceOrientationEvent
 ){
 
 
+
 window.addEventListener(
 
 "deviceorientation",
-
 
 function(e){
 
@@ -1218,15 +1474,8 @@ if(e.alpha){
 
 
 viewer.setYaw(
+
 e.alpha
-);
-
-
-}
-
-
-}
-
 
 );
 
@@ -1235,43 +1484,58 @@ e.alpha
 
 
 
+}
 
 
-/********************
- VR按钮
-********************/
+);
+
+
+}
+
+
+
+
+
+
+
+
+/*********************************
+ VR模式
+*********************************/
 
 
 document
 .getElementById("vrBtn")
-.onclick=
-
-function(){
+.onclick=function(){
 
 
 
 if(
 navigator.xr
+
 ){
 
 
+
 navigator.xr.requestSession(
+
 "immersive-vr"
 
 )
+
 .then(
 
-function(session){
+function(){
 
 
 alert(
-"VR模式已启动"
+
+"VR模式启动成功"
 
 );
 
 
 }
-
 
 );
 
@@ -1284,7 +1548,7 @@ else{
 
 alert(
 
-"当前设备不支持WebXR，请使用VR设备或手机浏览器"
+"当前浏览器不支持WebXR，请使用VR设备或手机浏览器"
 
 );
 
@@ -1293,7 +1557,9 @@ alert(
 
 
 
-}
+};
+
+
 
 
 
