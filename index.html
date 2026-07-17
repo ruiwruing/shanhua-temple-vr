@@ -3,25 +3,117 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Shanhua Temple VR — Quick Viewer</title>
+  <title>Shanhua Temple VR — Viewer</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
-  <style>html,body,#panorama{height:100%;margin:0;background:#000}#panorama{width:100vw;height:100vh}</style>
+  <style>
+    html,body,#panorama{height:100%;margin:0;background:#000}
+    #panorama{width:100vw;height:100vh}
+
+    /* Controls hint */
+    .controls-hint{
+      position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+      background:rgba(0,0,0,0.45);color:#fff;padding:8px 14px;border-radius:20px;
+      font-size:13px;z-index:3500;backdrop-filter:blur(6px);pointer-events:none
+    }
+
+    /* Scene navigation (floating) */
+    .scene-nav{
+      position:fixed;right:30px;top:50%;transform:translateY(-50%);
+      z-index:4000;display:flex;flex-direction:column;gap:12px;pointer-events:auto
+    }
+    .scene-btn{
+      background:rgba(255,255,255,0.08);backdrop-filter:blur(8px);
+      border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.9);
+      padding:12px 16px;border-radius:12px;cursor:pointer;font-size:14px;min-width:120px;
+      text-align:left;transition:all .18s
+    }
+    .scene-btn:hover{transform:translateX(-6px);background:rgba(255,255,255,0.12)}
+    .scene-btn.active{background:rgba(201,168,76,0.22);border-color:rgba(201,168,76,0.36);color:#fff}
+
+    /* Make buttons touch-friendly */
+    @media (max-width:640px){
+      .scene-nav{right:12px;left:50%;top:auto;bottom:16px;transform:translateX(-50%);flex-direction:row;gap:10px;padding:6px;border-radius:14px;background:rgba(0,0,0,0.18);border:1px solid rgba(255,255,255,0.06)}
+      .scene-btn{min-width:48px;padding:10px 12px;border-radius:10px;font-size:13px}
+      .controls-hint{bottom:76px}
+    }
+  </style>
 </head>
 <body>
   <div id="panorama"></div>
+
+  <div class="controls-hint" id="controlsHint">🖱️ 拖拽旋转查看360°全景 · 点击按钮切换场景</div>
+
+  <div class="scene-nav" id="sceneNav">
+    <button class="scene-btn active" id="btnExterior" onclick="switchScene('exterior')">殿前广场</button>
+    <button class="scene-btn" id="btnInterior" onclick="switchScene('interior')">殿内全景</button>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   <script>
-    // Minimal Pannellum viewer that uses the uploaded image files in this repo.
-    // Make sure the filename matches exactly (case-sensitive) with the file in repo root.
-    const IMAGE = "diannei.JPG"; // change to dianqian.jpg / dianqian.png if you prefer
+    // Scene image filenames (must match repo files exactly, case-sensitive)
+    const IMAGE_EXTERIOR = "diannei.JPG"; // exterior panorama
+    const IMAGE_INTERIOR = "dianqian.jpg"; // interior panorama (choose dianqian.png if you prefer)
 
-    pannellum.viewer('panorama', {
-      type: 'equirectangular',
-      panorama: IMAGE,
-      autoLoad: true,
-      showFullscreenCtrl: true,
-      showZoomCtrl: true
-    });
+    // Viewer configuration with two scenes
+    const viewerConfig = {
+      "default": {
+        author: "",
+        sceneFadeDuration: 1000,
+        autoLoad: true
+      },
+      "scenes": {
+        "exterior": {
+          "title": "殿前广场",
+          "type": "equirectangular",
+          "panorama": IMAGE_EXTERIOR,
+          "hfov": 90
+        },
+        "interior": {
+          "title": "殿内全景",
+          "type": "equirectangular",
+          "panorama": IMAGE_INTERIOR,
+          "hfov": 90
+        }
+      }
+    };
+
+    // Create viewer
+    const viewer = pannellum.viewer('panorama', viewerConfig);
+
+    // Adjust HFOV for mobile for a wider field of view
+    function adjustHfov(){
+      try{
+        const mobile = window.innerWidth <= 640;
+        const hfov = mobile ? 100 : 90;
+        if(viewer && typeof viewer.setHfov === 'function'){
+          viewer.setHfov(hfov);
+        }
+      }catch(e){console.warn('adjustHfov error', e)}
+    }
+    window.addEventListener('resize', adjustHfov);
+    // apply initial HFOV after a short delay to ensure viewer ready
+    setTimeout(adjustHfov, 300);
+
+    // Scene switch helper
+    function switchScene(id){
+      if(!viewer) return;
+      try{
+        viewer.loadScene(id);
+      }catch(e){
+        // fallback: try loading panorama directly
+        console.warn('loadScene failed', e);
+      }
+      // update active button
+      document.querySelectorAll('.scene-btn').forEach(b=>b.classList.remove('active'));
+      const btn = document.getElementById(id === 'interior' ? 'btnInterior' : 'btnExterior');
+      if(btn) btn.classList.add('active');
+      // small visual transition hint
+      const hint = document.getElementById('controlsHint');
+      if(hint){ hint.textContent = id === 'interior' ? '正在查看：殿内全景' : '正在查看：殿前广场'; setTimeout(()=>hint.textContent='🖱️ 拖拽旋转查看360°全景 · 点击按钮切换场景',1800);}    
+    }
+
+    // Ensure scene buttons are above viewer and pointer-events work
+    document.getElementById('sceneNav').style.pointerEvents = 'auto';
   </script>
 </body>
 </html>
