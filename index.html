@@ -59,7 +59,8 @@
       "default": {
         author: "",
         sceneFadeDuration: 1000,
-        autoLoad: true
+        autoLoad: true,
+        firstScene: "exterior" // ensure initial scene is specified
       },
       "scenes": {
         "exterior": {
@@ -79,6 +80,17 @@
 
     // Create viewer
     const viewer = pannellum.viewer('panorama', viewerConfig);
+
+    // If viewer couldn't find panorama, show console info to help debug
+    try{
+      // Check if the current scene has a panorama, otherwise log scenes
+      const cfg = viewer.getConfig ? viewer.getConfig() : viewerConfig;
+      const currentScene = cfg && cfg.default && cfg.default.firstScene ? cfg.default.firstScene : null;
+      const panoramaSpecified = currentScene && cfg.scenes && cfg.scenes[currentScene] && cfg.scenes[currentScene].panorama;
+      if(!panoramaSpecified){
+        console.warn('Panorama not specified for firstScene. Available scenes:', Object.keys(cfg.scenes || {}));
+      }
+    }catch(e){ console.warn('Viewer config check error', e); }
 
     // Adjust HFOV for mobile for a wider field of view
     function adjustHfov(){
@@ -102,6 +114,11 @@
       }catch(e){
         // fallback: try loading panorama directly
         console.warn('loadScene failed', e);
+        // attempt to load panorama URL if scene load fails
+        var scene = viewerConfig.scenes && viewerConfig.scenes[id];
+        if(scene && scene.panorama){
+          try{ viewer.setPanorama(scene.panorama); }catch(err){ console.warn('setPanorama failed', err); }
+        }
       }
       // update active button
       document.querySelectorAll('.scene-btn').forEach(b=>b.classList.remove('active'));
