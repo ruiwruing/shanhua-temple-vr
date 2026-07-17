@@ -352,6 +352,150 @@ translate(-50%,-50%);
 
 
 </style>
+/***************
+数字导游栏
+****************/
+
+
+.guide-bar{
+
+
+position:absolute;
+
+
+bottom:35px;
+
+
+left:50%;
+
+
+transform:
+translateX(-50%);
+
+
+
+z-index:15;
+
+
+
+display:flex;
+
+
+
+gap:35px;
+
+
+
+padding:
+
+15px 40px;
+
+
+
+
+background:
+
+rgba(20,20,20,.45);
+
+
+
+backdrop-filter:
+
+blur(18px);
+
+
+
+border:
+
+1px solid rgba(255,255,255,.35);
+
+
+
+border-radius:50px;
+
+
+
+box-shadow:
+
+0 10px 40px rgba(0,0,0,.5);
+
+
+
+}
+
+
+
+.guide-item{
+
+
+width:75px;
+
+
+height:65px;
+
+
+
+display:flex;
+
+
+flex-direction:column;
+
+
+align-items:center;
+
+
+justify-content:center;
+
+
+
+color:white;
+
+
+font-size:26px;
+
+
+
+cursor:pointer;
+
+
+
+transition:.3s;
+
+
+}
+
+
+
+.guide-item span{
+
+
+font-size:14px;
+
+
+margin-top:5px;
+
+
+letter-spacing:2px;
+
+
+}
+
+
+
+
+.guide-item:hover{
+
+
+transform:
+
+translateY(-8px);
+
+
+
+color:#e6c27a;
+
+
+}
 
 
 
@@ -372,7 +516,77 @@ translate(-50%,-50%);
 
 
 <div id="panorama"></div>
+<!-- 数字导游控制栏 -->
 
+<div class="guide-bar">
+
+
+<div class="guide-item"
+onclick="showGuide('building')">
+
+🏯
+
+<span>
+建筑
+</span>
+
+</div>
+
+
+
+<div class="guide-item"
+onclick="showGuide('buddha')">
+
+🪷
+
+<span>
+佛像
+</span>
+
+</div>
+
+
+
+<div class="guide-item"
+onclick="showGuide('history')">
+
+📜
+
+<span>
+历史
+</span>
+
+</div>
+
+
+
+
+<div class="guide-item"
+onclick="showGuide('ai')">
+
+🎧
+
+<span>
+AI讲解
+</span>
+
+</div>
+
+
+
+<div class="guide-item"
+onclick="showGuide('map')">
+
+🗺️
+
+<span>
+导览
+</span>
+
+</div>
+
+
+</div>
 
 
 <button id="vrBtn">
@@ -680,7 +894,141 @@ showInfo("guardians");
 
 
 const data={
+const guideData={
 
+
+building:{
+
+
+title:"金代木构建筑",
+
+content:
+
+`
+
+善化寺大雄宝殿是我国现存规模最大的辽金时期佛殿之一。
+
+
+
+<br><br>
+
+
+建筑采用传统木构架体系，
+斗拱层层叠加，
+体现中国古代建筑智慧。
+
+
+
+`
+
+
+},
+
+
+
+
+history:{
+
+
+title:"善化寺历史",
+
+content:
+
+`
+
+善化寺始建于唐代开元年间。
+
+
+
+<br><br>
+
+
+现存主体建筑主要形成于辽金时期，
+是中国北方佛教建筑的重要遗存。
+
+
+
+`
+
+
+},
+
+
+
+ai:{
+
+
+title:"数字导游",
+
+content:
+
+`
+
+您好，我是善化寺数字导游。
+
+
+<br><br>
+
+
+接下来将带您探索：
+
+大雄宝殿建筑、
+
+辽金彩塑、
+
+二十四诸天艺术。
+
+
+
+<br><br>
+
+
+🎧 语音讲解功能即将开启。
+
+
+`
+
+
+},
+
+
+
+
+map:{
+
+
+title:"游览路线",
+
+content:
+
+`
+
+当前路线：
+
+<br><br>
+
+① 殿前广场
+
+↓
+
+② 大雄宝殿
+
+↓
+
+③ 主尊佛像
+
+↓
+
+④ 二十四诸天
+
+
+`
+
+
+}
+
+
+};
 
 
 buddha:{
@@ -803,7 +1151,36 @@ document
 
 
 
-function closeInfo(){
+function showGuide(type){
+
+
+let item=
+guideData[type];
+
+
+
+document
+.getElementById("infoTitle")
+.innerHTML=
+item.title;
+
+
+
+document
+.getElementById("infoContent")
+.innerHTML=
+item.content;
+
+
+
+document
+.getElementById("infoBox")
+.style.display=
+"block";
+
+
+}
+
 
 
 document
