@@ -2,48 +2,57 @@
 
 <html lang="zh-CN">
 
-
 <head>
-
 
 <meta charset="UTF-8">
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
 <title>
-善化寺数字沉浸展厅
+善化寺 · 大雄宝殿数字体验
 </title>
 
 
-<link rel="stylesheet"
 
+<link rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css">
 
 
 <script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js">
-
 </script>
-
 
 
 <style>
 
 
-html,body{
+*{
 
 margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+}
+
+
+html,body{
+
+width:100%;
 
 height:100%;
 
 overflow:hidden;
 
 font-family:
-"Microsoft YaHei";
+"Microsoft YaHei",
+sans-serif;
 
 }
 
 
-
-/*全景窗口*/
+/*全景*/
 
 #panorama{
 
@@ -56,69 +65,199 @@ height:100vh;
 
 
 
-/*信息弹窗*/
+/**************
+顶部标题
+**************/
+
+
+.title{
+
+
+position:absolute;
+
+top:35px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+
+z-index:5;
+
+
+color:white;
+
+
+font-size:28px;
+
+
+letter-spacing:12px;
+
+
+text-shadow:
+
+0 2px 15px #000;
+
+
+}
+
+
+/**************
+VR按钮
+**************/
+
+
+#vrBtn{
+
+
+position:absolute;
+
+
+right:30px;
+
+
+bottom:35px;
+
+
+z-index:10;
+
+
+padding:15px 28px;
+
+
+
+border-radius:40px;
+
+
+border:
+
+1px solid rgba(255,255,255,.5);
+
+
+
+background:
+
+rgba(0,0,0,.45);
+
+
+
+backdrop-filter:
+
+blur(15px);
+
+
+
+color:white;
+
+
+font-size:16px;
+
+
+cursor:pointer;
+
+
+transition:.3s;
+
+
+}
+
+
+#vrBtn:hover{
+
+
+background:
+
+rgba(180,130,50,.8);
+
+
+}
+
+
+
+
+/**************
+信息卡片
+**************/
+
 
 .info-box{
 
 
 position:absolute;
 
+
 top:50%;
+
 
 left:50%;
 
+
 transform:
+
 translate(-50%,-50%);
 
 
-width:360px;
+
+width:420px;
 
 
-padding:30px;
+padding:35px;
+
 
 
 background:
 
-rgba(20,20,20,0.45);
+rgba(15,15,15,.55);
+
 
 
 backdrop-filter:
-blur(15px);
+
+blur(18px);
 
 
 -webkit-backdrop-filter:
-blur(15px);
+
+blur(18px);
+
 
 
 border:
 
-1px solid rgba(255,255,255,0.35);
+1px solid rgba(255,255,255,.35);
 
 
 
-border-radius:18px;
+border-radius:20px;
+
 
 
 color:white;
 
 
+
 display:none;
 
 
-z-index:10;
 
+z-index:20;
 
-animation:
-fade .5s;
 
 
 box-shadow:
 
-0 20px 50px rgba(0,0,0,.5);
+0 20px 60px rgba(0,0,0,.6);
+
+
+
+animation:
+
+show .5s;
 
 
 
 }
+
 
 
 
@@ -128,10 +267,17 @@ box-shadow:
 text-align:center;
 
 
-color:#e8c27a;
+font-size:25px;
 
 
-letter-spacing:5px;
+letter-spacing:8px;
+
+
+color:#e6c27a;
+
+
+margin-bottom:20px;
+
 
 
 }
@@ -141,13 +287,17 @@ letter-spacing:5px;
 .info-box p{
 
 
+font-size:16px;
+
+
 line-height:2;
 
 
-font-size:15px;
+color:#eee;
 
 
 }
+
 
 
 
@@ -163,17 +313,17 @@ right:20px;
 top:15px;
 
 
+font-size:25px;
+
+
 cursor:pointer;
-
-
-font-size:22px;
 
 
 }
 
 
 
-@keyframes fade{
+@keyframes show{
 
 
 from{
@@ -184,6 +334,7 @@ transform:
 translate(-50%,-40%);
 
 }
+
 
 
 to{
@@ -200,45 +351,8 @@ translate(-50%,-50%);
 
 
 
-
-/*顶部标题*/
-
-
-.title{
-
-
-position:absolute;
-
-
-top:30px;
-
-left:50%;
-
-transform:
-translateX(-50%);
-
-
-z-index:5;
-
-
-color:white;
-
-
-font-size:24px;
-
-
-letter-spacing:8px;
-
-
-text-shadow:
-0 2px 8px black;
-
-
-}
-
-
-
 </style>
+
 
 
 </head>
@@ -246,6 +360,7 @@ text-shadow:
 
 
 <body>
+
 
 
 <div class="title">
@@ -260,39 +375,37 @@ text-shadow:
 
 
 
-<div class="info-box" id="info">
+<button id="vrBtn">
+
+🥽 VR沉浸模式
+
+</button>
+
+
+
+
+<!-- 信息弹窗 -->
+
+
+<div class="info-box" id="infoBox">
 
 
 <div class="close"
 onclick="closeInfo()">
+
 ×
+
 </div>
 
 
-<h2>
-释迦牟尼佛
+
+<h2 id="infoTitle">
+
 </h2>
 
 
-<p>
 
-善化寺大雄宝殿中央供奉释迦牟尼佛。
-
-
-<br><br>
-
-
-该殿始建于辽代，重建于金代，
-保存有完整的辽金建筑风貌。
-
-
-<br><br>
-
-
-佛像造型庄严，
-衣纹细腻流畅，
-体现中国北方佛教艺术
-的独特审美。
+<p id="infoContent">
 
 </p>
 
@@ -302,7 +415,14 @@ onclick="closeInfo()">
 
 
 
+
 <script>
+
+
+
+/********************
+ 全景场景配置
+********************/
 
 
 let viewer;
@@ -311,7 +431,10 @@ let viewer;
 
 viewer =
 pannellum.viewer(
-'panorama',
+
+"panorama",
+
+
 {
 
 
@@ -324,11 +447,11 @@ firstScene:"outside",
 autoLoad:true,
 
 
-sceneFadeDuration:1000
+sceneFadeDuration:1500
+
 
 
 },
-
 
 
 
@@ -336,9 +459,11 @@ scenes:{
 
 
 
-/**************
+/*************
+场景1
 殿前
-**************/
+*************/
+
 
 outside:{
 
@@ -346,13 +471,20 @@ outside:{
 type:"equirectangular",
 
 
+
 panorama:
 
 "images/exterior.jpg",
 
 
+
 title:
-"大雄宝殿前广场",
+
+"善化寺大雄宝殿前广场",
+
+
+
+hfov:90,
 
 
 
@@ -364,17 +496,23 @@ hotSpots:[
 
 pitch:-5,
 
+
 yaw:0,
 
 
 type:"scene",
 
 
+
 text:
+
 "进入大雄宝殿",
 
 
-sceneId:"inside"
+
+sceneId:
+
+"inside"
 
 
 }
@@ -388,14 +526,20 @@ sceneId:"inside"
 
 
 
-/**************
+
+/*************
+场景2
 殿内
-**************/
+*************/
+
+
 
 inside:{
 
 
+
 type:"equirectangular",
+
 
 
 panorama:
@@ -410,6 +554,9 @@ title:
 
 
 
+hfov:90,
+
+
 
 hotSpots:[
 
@@ -420,6 +567,7 @@ hotSpots:[
 
 pitch:0,
 
+
 yaw:0,
 
 
@@ -428,15 +576,14 @@ type:"info",
 
 text:
 
-"查看释迦牟尼佛",
-
+"释迦牟尼佛",
 
 
 clickHandlerFunc:
 
 function(){
 
-openInfo();
+showInfo("buddha");
 
 }
 
@@ -449,9 +596,10 @@ openInfo();
 {
 
 
-pitch:-10,
+pitch:-5,
 
-yaw:-70,
+
+yaw:-55,
 
 
 type:"info",
@@ -466,7 +614,38 @@ clickHandlerFunc:
 
 function(){
 
-openInfo2();
+showInfo("guardians");
+
+}
+
+
+},
+
+
+
+
+{
+
+
+pitch:-5,
+
+
+yaw:55,
+
+
+type:"info",
+
+
+text:
+
+"右侧二十四诸天",
+
+
+clickHandlerFunc:
+
+function(){
+
+showInfo("guardians");
 
 }
 
@@ -477,9 +656,7 @@ openInfo2();
 
 ]
 
-
 }
-
 
 
 }
@@ -492,15 +669,137 @@ openInfo2();
 
 
 
-function openInfo(){
+
+
+
+
+/********************
+ 文物信息数据库
+********************/
+
+
+
+const data={
+
+
+
+buddha:{
+
+
+title:
+
+"释迦牟尼佛",
+
+
+
+content:
+
+`
+
+善化寺大雄宝殿中央主尊佛像。
+
+
+
+<br><br>
+
+
+
+年代：
+
+金代。
+
+
+
+<br><br>
+
+
+
+艺术特点：
+
+佛像神态庄严，
+比例匀称，
+衣纹流畅。
+
+
+体现了辽金时期
+北方佛教造像艺术。
+
+`
+
+},
+
+
+
+
+guardians:{
+
+
+
+title:
+
+"二十四诸天",
+
+
+
+content:
+
+`
+
+大雄宝殿两侧供奉二十四诸天护法像。
+
+
+<br><br>
+
+
+这些造像融合佛教体系
+与中国传统武将形象。
+
+
+<br><br>
+
+
+具有鲜明的辽金彩塑艺术特色。
+
+`
+
+}
+
+
+
+};
+
+
+
+
+
+function showInfo(type){
+
+
+let item=data[type];
 
 
 document
-.getElementById("info")
-.style.display="block";
+.getElementById("infoTitle")
+.innerHTML=
+item.title;
+
+
+
+document
+.getElementById("infoContent")
+.innerHTML=
+item.content;
+
+
+
+document
+.getElementById("infoBox")
+.style.display=
+"block";
 
 
 }
+
 
 
 
@@ -508,31 +807,114 @@ function closeInfo(){
 
 
 document
-.getElementById("info")
-.style.display="none";
+.getElementById("infoBox")
+.style.display=
+"none";
 
 
 }
 
 
 
-function openInfo2(){
+
+
+
+/********************
+ 手机陀螺仪
+********************/
+
+
+if(
+window.DeviceOrientationEvent
+){
+
+
+window.addEventListener(
+
+"deviceorientation",
+
+
+function(e){
+
+
+if(e.alpha){
+
+
+viewer.setYaw(
+e.alpha
+);
+
+
+}
+
+
+}
+
+
+);
+
+
+}
+
+
+
+
+
+/********************
+ VR按钮
+********************/
 
 
 document
-.getElementById("info")
-.style.display="block";
+.getElementById("vrBtn")
+.onclick=
+
+function(){
 
 
-document.querySelector(".info-box h2")
-.innerHTML=
-"二十四诸天";
+
+if(
+navigator.xr
+){
 
 
-document.querySelector(".info-box p")
-.innerHTML=
+navigator.xr.requestSession(
+"immersive-vr"
 
-"大雄宝殿两侧供奉二十四诸天护法像。<br><br>这些造像融合了中国传统武将形象与佛教护法体系，是辽金时期彩塑艺术的重要代表。";
+)
+.then(
+
+function(session){
+
+
+alert(
+"VR模式已启动"
+
+);
+
+
+}
+
+
+);
+
+
+
+}
+
+else{
+
+
+alert(
+
+"当前设备不支持WebXR，请使用VR设备或手机浏览器"
+
+);
+
+
+}
+
+
 
 }
 
